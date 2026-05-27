@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Portfolio | CPIT-455</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f8fafc;
+    --bg-card: #ffffff;
+    --ink: #0f172a;
+    --ink-soft: #334155;
+    --muted: #64748b;
+    --line: #e2e8f0;
+    --line-strong: #cbd5e1;
+    --accent: #0f766e;
+    --accent-soft: #ccfbf1;
+    --accent-deep: #134e4a;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --danger: #b91c1c;
+    --danger-soft: #fee2e2;
+    --ok: #15803d;
+    --ok-soft: #dcfce7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; color-scheme: light only; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    forced-color-adjust: none;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .brand { font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; color: var(--ink); }
+  .brand span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.15s; }
+  nav ul a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero { padding: 5rem 2.5rem 4rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .hero h1 { font-size: clamp(2.5rem, 5.5vw, 4rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 1.25rem; }
+  .hero p.lead { font-size: 1.1rem; color: var(--ink-soft); max-width: 640px; font-weight: 400; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4, max-content); gap: 3rem; margin-top: 2.5rem; }
+  .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
+  .stat-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.15rem; }
+
+  /* SECTIONS */
+  section { padding: 4.5rem 2.5rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.5rem; }
+  .section-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 2.5rem; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .info-card { padding: 1.5rem; background: var(--bg-soft); border-radius: 12px; border: 1px solid var(--line); }
+  .info-card h3 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 1rem; font-weight: 600; }
+  .info-row { display: flex; padding: 0.5rem 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .label { color: var(--muted); width: 130px; flex-shrink: 0; }
+  .info-row .value { color: var(--ink); font-weight: 500; }
+  .skills-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill { padding: 0.3rem 0.7rem; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; font-size: 0.78rem; color: var(--ink-soft); font-weight: 500; }
+
+  /* WEEK BLOCKS */
+  .week { padding: 2rem 0; border-bottom: 1px solid var(--line); }
+  .week:last-child { border-bottom: none; }
+  .week-meta { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem; }
+  .week-num { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  .week-ch { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+  .week h3 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .week-topics { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.8rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--line); }
+  .ev-h4 { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin: 1.6rem 0 0.7rem; letter-spacing: -0.005em; }
+  .ev-h4:first-of-type { margin-top: 0; }
+  .week p { color: var(--ink-soft); margin-bottom: 0.8rem; font-size: 0.94rem; }
+  .week p strong { color: var(--ink); font-weight: 600; }
+  .week ul { padding-left: 1.4rem; color: var(--ink-soft); font-size: 0.94rem; margin-bottom: 0.8rem; }
+  .week ul li { margin-bottom: 0.4rem; }
+  .week ul li strong { color: var(--ink); }
+
+  /* MY CONTRIBUTION BADGE */
+  .my-role {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+  .my-contribution {
+    margin: 1rem 0;
+    padding: 1rem 1.2rem;
+    background: linear-gradient(to right, var(--accent-soft) 3px, var(--bg-soft) 3px);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+  .my-contribution strong { color: var(--accent-deep); }
+
+  /* DATA TABLES */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.8rem 0 1.2rem; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .data-table th { background: var(--bg-soft); text-align: left; padding: 0.7rem 1rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--line); }
+  .data-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td strong { color: var(--ink); }
+
+  /* CALLOUTS */
+  .callout { padding: 1rem 1.2rem; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; margin: 1rem 0; color: var(--accent-deep); font-size: 0.9rem; }
+  .callout strong { color: var(--accent-deep); font-weight: 700; }
+  .callout.warn { border-color: var(--warn); background: var(--warn-soft); color: #78350f; }
+  .callout.warn strong { color: #78350f; }
+  .callout.danger { border-color: var(--danger); background: var(--danger-soft); color: #7f1d1d; }
+  .callout.danger strong { color: #7f1d1d; }
+
+  /* PILLS */
+  .pill { display: inline-block; padding: 0.18rem 0.6rem; border-radius: 999px; font-size: 0.72rem; font-weight: 600; margin-right: 0.3rem; }
+  .pill.green { background: var(--ok-soft); color: var(--ok); }
+  .pill.amber { background: var(--warn-soft); color: var(--warn); }
+  .pill.red { background: var(--danger-soft); color: var(--danger); }
+  .pill.teal { background: var(--accent-soft); color: var(--accent-deep); }
+
+  /* VISUAL DIAGRAMS */
+  .visual { margin: 1.4rem 0; padding: 1.6rem; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px; }
+  .visual-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; margin-bottom: 1rem; text-align: center; }
+
+  /* Failure Chain */
+  .chain { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: stretch; }
+  .chain-step { padding: 1rem; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; text-align: center; }
+  .chain-step.fault { border-top: 3px solid var(--accent); }
+  .chain-step.error { border-top: 3px solid var(--warn); }
+  .chain-step.failure { border-top: 3px solid var(--danger); }
+  .chain-step .step-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 0.4rem; }
+  .chain-step.fault .step-label { color: var(--accent); }
+  .chain-step.error .step-label { color: var(--warn); }
+  .chain-step.failure .step-label { color: var(--danger); }
+  .chain-step .step-name { font-weight: 600; font-size: 0.85rem; color: var(--ink); margin-bottom: 0.5rem; }
+  .chain-step .step-detail { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+  .chain-arrow { display: flex; align-items: center; justify-content: center; color: var(--line-strong); font-size: 1.3rem; padding: 0 0.6rem; }
+
+  /* Hazard chain */
+  .hazard-chain { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.6rem; }
+  .hazard-step { padding: 1rem; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; position: relative; }
+  .hazard-step::after { content: '→'; position: absolute; right: -0.55rem; top: 50%; transform: translateY(-50%); color: var(--line-strong); font-size: 0.9rem; z-index: 1; }
+  .hazard-step:last-child::after { display: none; }
+  .hazard-step .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 0.3rem; }
+  .hazard-step.hazard { border-left: 3px solid var(--warn); }
+  .hazard-step.hazard .label { color: var(--warn); }
+  .hazard-step.accident { border-left: 3px solid var(--danger); }
+  .hazard-step.accident .label { color: var(--danger); }
+  .hazard-step.damage { border-left: 3px solid #831843; }
+  .hazard-step.damage .label { color: #831843; }
+  .hazard-step.intervene { border-left: 3px solid var(--accent); }
+  .hazard-step.intervene .label { color: var(--accent); }
+  .hazard-step p { font-size: 0.82rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+  /* ALARP */
+  .alarp-wrap { display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: center; }
+  .alarp-svg { width: 100%; height: auto; }
+  .alarp-zones { display: flex; flex-direction: column; gap: 0.5rem; }
+  .alarp-zone { padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.85rem; }
+  .alarp-zone strong { display: block; font-size: 0.78rem; margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .alarp-zone.intolerable { background: var(--danger-soft); color: #7f1d1d; }
+  .alarp-zone.intolerable strong { color: var(--danger); }
+  .alarp-zone.alarp-z { background: var(--warn-soft); color: #78350f; }
+  .alarp-zone.alarp-z strong { color: var(--warn); }
+  .alarp-zone.acceptable { background: var(--ok-soft); color: #14532d; }
+  .alarp-zone.acceptable strong { color: var(--ok); }
+
+  /* Swiss Cheese */
+  .swiss { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .swiss-layer { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
+  .swiss-layer .layer-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-deep); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; }
+  .swiss-layer h5 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--ink); }
+  .swiss-layer ul { padding-left: 1.1rem; font-size: 0.83rem; margin: 0; }
+  .swiss-layer ul li { margin-bottom: 0.3rem; }
+
+  /* Architecture */
+  .arch-diagram { display: flex; flex-direction: column; gap: 0.8rem; }
+  .arch-tier { padding: 1rem 1.2rem; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; display: grid; grid-template-columns: 110px 1fr; gap: 1rem; align-items: center; }
+  .arch-tier.client { border-left: 4px solid #2563eb; }
+  .arch-tier.app { border-left: 4px solid var(--accent); }
+  .arch-tier.data { border-left: 4px solid #7c3aed; }
+  .arch-tier.notif { border-left: 4px solid var(--warn); }
+  .tier-label { font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .tier-content { font-size: 0.88rem; color: var(--ink-soft); }
+  .tier-content strong { color: var(--ink); }
+  .arch-connector { text-align: center; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 0.2rem 0; }
+
+  /* PROJECT */
+  .project-card { background: linear-gradient(135deg, var(--bg-soft) 0%, #f0fdfa 100%); border: 1px solid var(--accent-soft); border-radius: 16px; padding: 2.5rem; }
+  .project-title { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 0.3rem; }
+  .project-tagline { color: var(--accent); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .project-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--accent-deep);
+    font-weight: 600;
+    font-size: 0.88rem;
+    transition: all 0.15s;
+  }
+  .project-live:hover { background: var(--accent); color: white; }
+  .project-live::before { content: '●'; color: var(--ok); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .project-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0 2rem; padding: 1.2rem; background: var(--bg); border-radius: 10px; border: 1px solid var(--line); }
+  .meta-item .meta-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+  .meta-item .meta-val { font-weight: 600; color: var(--ink); font-size: 0.92rem; }
+  .metrics-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; margin: 1.5rem 0; }
+  .metric { padding: 1rem; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; text-align: center; }
+  .metric .m-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+  .metric .m-val { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+
+  /* Tech stack */
+  .tech-stack-list { display: grid; grid-template-columns: 140px 1fr; gap: 0.3rem 1rem; font-size: 0.88rem; margin: 0.8rem 0; }
+  .tech-layer { color: var(--muted); font-weight: 600; }
+  .tech-name { color: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+  /* Role card */
+  .role-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .role-card h4 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .role-card ul { padding-left: 1.4rem; margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+  .role-card ul li { margin-bottom: 0.5rem; }
+  .role-card ul li strong { color: var(--ink); }
+
+  /* REFLECTION */
+  .reflection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2rem; }
+  .ref-card { padding: 1.4rem; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px; }
+  .ref-card h4 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+  .ref-card p { color: var(--ink-soft); font-size: 0.9rem; margin: 0; }
+  blockquote { margin: 1.5rem 0; padding: 1.3rem 1.5rem; border-left: 3px solid var(--accent); background: var(--bg-soft); border-radius: 0 8px 8px 0; font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.7; }
+
+  /* Score */
+  .score { margin-top: 1.5rem; padding: 0.7rem 1rem; background: var(--bg-soft); border: 1px dashed var(--line-strong); border-radius: 8px; font-size: 0.82rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* Footer */
+  footer { padding: 3rem 2.5rem; text-align: center; background: var(--bg-soft); border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
+  footer p { margin-bottom: 0.4rem; }
+
+  /* Responsive */
+  @media (max-width: 820px) {
+    nav { padding: 0 1.25rem; }
+    nav ul { display: none; }
+    .hero, section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .about-grid, .reflection-grid { grid-template-columns: 1fr; }
+    .chain { grid-template-columns: 1fr; }
+    .chain-arrow { transform: rotate(90deg); padding: 0.3rem 0; }
+    .hazard-chain { grid-template-columns: 1fr; }
+    .hazard-step::after { display: none; }
+    .alarp-wrap { grid-template-columns: 1fr; }
+    .swiss { grid-template-columns: 1fr; }
+    .metrics-row, .project-meta { grid-template-columns: 1fr 1fr; }
+    .arch-tier { grid-template-columns: 1fr; }
+    .tech-stack-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="brand">Abdulrahman Abu Alwah <span>· CPIT-455</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#evidence">Evidence</a></li>
+    <li><a href="#project">Project</a></li>
+    <li><a href="#reflection">Reflection</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Abdulrahman Osama Abu Alwah · CPIT-455 · Software Engineering II</div>
+  <h1>Build your proof.</h1>
+  <p class="lead">A living record of engineering evidence. Each week, I document a small proof of learning that compounds into professional-grade understanding of dependable systems.</p>
+  <div class="hero-stats">
+    <div><div class="stat-num">16</div><div class="stat-label">Weeks</div></div>
+    <div><div class="stat-num">V2</div><div class="stat-label">Iteration</div></div>
+    <div><div class="stat-num">10</div><div class="stat-label">Assignments</div></div>
+    <div><div class="stat-num">1</div><div class="stat-label">Project</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>About me</h2>
+  <p class="section-sub">An Information Technology student building the discipline behind the code.</p>
+
+  <div class="about-grid">
+    <div class="info-card">
+      <h3>Academic Information</h3>
+      <div class="info-row"><span class="label">Name</span><span class="value">Abdulrahman Osama Abu Alwah</span></div>
+      <div class="info-row"><span class="label">University</span><span class="value">King Abdulaziz University</span></div>
+      <div class="info-row"><span class="label">Major</span><span class="value">Information Technology</span></div>
+      <div class="info-row"><span class="label">Year</span><span class="value">2026, Semester 2</span></div>
+      <div class="info-row"><span class="label">Course</span><span class="value">CPIT-455 Software Engineering II</span></div>
+      <div class="info-row"><span class="label">Domain</span><span class="value">Dependable & Safety-Critical Systems</span></div>
+    </div>
+
+    <div class="info-card">
+      <h3>Engineering Skills</h3>
+      <div class="skills-list">
+        <span class="skill">Fault Tree Analysis</span>
+        <span class="skill">ALARP Risk Assessment</span>
+        <span class="skill">Safety Case Writing</span>
+        <span class="skill">Resilience Design</span>
+        <span class="skill">CBSE</span>
+        <span class="skill">Distributed Systems</span>
+        <span class="skill">Security Engineering</span>
+        <span class="skill">UML & Architecture</span>
+        <span class="skill">React</span>
+        <span class="skill">Node.js</span>
+        <span class="skill">PostgreSQL</span>
+        <span class="skill">V&V Evidence</span>
+        <span class="skill">Technical Writing</span>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:1.5rem; color:var(--ink-soft);">Most of what I learned before this course was about getting code to run. CPIT-455 taught me a different question, not whether code <em>runs</em>, but whether anyone should <em>trust</em> it. That shift is the whole point of this portfolio. The MedAlert capstone is where I tested the shift in practice: instead of writing features for the team, I worked on the engineering analysis side, turning the team's implementation choices into a documented case for safety, security, and resilience. The weekly evidence below is the trail of that work.</p>
+</section>
+
+<!-- EVIDENCE -->
+<section id="evidence">
+  <h2>Weekly evidence</h2>
+  <p class="section-sub">Evidence is clear thinking, not perfection. Each entry is my individual analysis applying the week's concepts.</p>
+
+  <!-- WEEK 01-02 -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 01–02</span>
+      <span class="week-ch">Class 01 · Domain Spine</span>
+    </div>
+    <h3>Dependable Systems</h3>
+    <div class="week-topics">5 Attributes (Availability, Reliability, Safety, Security, Resilience) · Sources of Failure · Achievement Strategies</div>
+
+    <div class="ev-h4">My evidence: mapping dependability to our team's project</div>
+    <p>I selected my team's MedAlert system as the target, a clinic medication management application where dependability is not a luxury but a clinical requirement. I worked through each attribute and mapped it to a concrete failure mode the system must prevent.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Attribute</th><th>What it means in MedAlert</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Availability</strong></td><td>The system must be reachable across all shifts, day, night, emergency.</td><td>Medications follow fixed schedules. A nurse cannot wait for a restart at 3 AM.</td></tr>
+        <tr><td><strong>Reliability</strong></td><td>Every dose record is accurate; no silent failure, no duplicate logging.</td><td>A wrong record is as dangerous as a wrong dose, it leads to double-administration.</td></tr>
+        <tr><td><strong>Safety</strong></td><td>The system never permits an overdose, never silently drops an alert.</td><td>A missed alert can become a missed dose. The consequence is patient harm.</td></tr>
+        <tr><td><strong>Security</strong></td><td>Patient records protected via Firebase Authentication, role isolation, and admin 2FA.</td><td>Exposure of medication history could enable targeted harm against a patient.</td></tr>
+        <tr><td><strong>Resilience</strong></td><td>The system degrades gracefully, when the DB is unreachable, the API returns 503 and halts dose logging instead of silently failing.</td><td>Silent failure is the worst outcome. An honest failure is recoverable; a hidden one is not.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout"><strong>Key insight from class.</strong> The attributes are not independent. A security breach often forces the system offline, which destroys availability, which causes reliability failures (missed alerts), which becomes a safety event. One attack, all five attributes degraded.</div>
+
+    <div class="ev-h4">Sources of failure I identified</div>
+    <ul>
+      <li><strong>Hardware:</strong> Vercel/Supabase region outage, clinic network drop, tablet malfunction.</li>
+      <li><strong>Software:</strong> Bugs in the cron-based alert scheduler, race conditions in concurrent dose logging, database connection pool exhaustion.</li>
+      <li><strong>Operational (most likely):</strong> Nurses confirming doses without verification, admins misconfiguring schedules. As the lecture stated, most "system" failures are actually operational failures.</li>
+    </ul>
+
+    <div class="ev-h4">Proposed dependability strategy</div>
+    <ul>
+      <li><strong>Prevention.</strong> Strict input validation on dose entries; role-based access control limits who can modify schedules.</li>
+      <li><strong>Verification & Validation.</strong> Backend rejects any <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;background:var(--bg-soft);padding:1px 5px;border-radius:3px">actual_dosage &gt; max_dose</code>, caught at the boundary before it can become a dose event.</li>
+      <li><strong>Fault Tolerance.</strong> 503 response with halted dose logging when DB is unreachable. No silent failures.</li>
+      <li><strong>Redundancy.</strong> Two independent notification channels, FCM push and SendGrid email, so a single channel failure cannot drop an alert.</li>
+    </ul>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only]</div>
+  </div>
+
+  <!-- WEEK 03-04 -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 03–04</span>
+      <span class="week-ch">Class 02 · Chapter 10</span>
+    </div>
+    <h3>Reliability Engineering</h3>
+    <div class="week-topics">Fault → Error → Failure Chain · POFOD / ROCOF / AVAIL · 8 Commandments of Reliable Programming</div>
+
+    <div class="ev-h4">System profile</div>
+    <p>MedAlert serves clinical staff, nurses, doctors, admins. Medication events are predictable and structured (3–6 events per patient per day), not random consumer traffic. Peak load is concentrated at morning rounds and shift handover. Demand is not random, it is time-critical.</p>
+
+    <div class="ev-h4">My metric selection: why POFOD over ROCOF</div>
+    <table class="data-table">
+      <thead><tr><th>Metric</th><th>Definition</th><th>My verdict</th></tr></thead>
+      <tbody>
+        <tr><td><strong>POFOD</strong></td><td>Probability of Failure on Demand, success rate per discrete request.</td><td><span class="pill green">Primary.</span> Every alert and every dose-log is a discrete demand. Each one must succeed.</td></tr>
+        <tr><td><strong>AVAIL</strong></td><td>Proportion of time the system is operational.</td><td><span class="pill teal">Secondary.</span> Must stay up during shift hours.</td></tr>
+        <tr><td>ROCOF</td><td>Rate of failure occurrences per time unit.</td><td>Less useful, MedAlert's risk is per-demand, not time-density.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><strong>My reasoning.</strong> The question for a safety-critical system with intermittent demand is not "how often does it fail per hour" but "did it succeed THIS time, for THIS patient, at THIS dose?" That is exactly the question POFOD answers.</div>
+
+    <div class="ev-h4">The Fault → Error → Failure chain: applied to MedAlert</div>
+    <p>I traced one concrete bug class through the full chain, a real risk in our cron-based scheduler.</p>
+
+    <div class="visual">
+      <div class="visual-title">Fault → Error → Failure</div>
+      <div class="chain">
+        <div class="chain-step fault">
+          <div class="step-label">Fault</div>
+          <div class="step-name">Static defect</div>
+          <div class="step-detail">Cron scheduler reads timestamps without timezone normalization. Lies dormant in code.</div>
+        </div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step error">
+          <div class="step-label">Error</div>
+          <div class="step-name">Wrong internal state</div>
+          <div class="step-detail">After DST change, the grace-window check is off by one hour; doses appear "not yet due."</div>
+        </div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step failure">
+          <div class="step-label">Failure</div>
+          <div class="step-name">Visible to user</div>
+          <div class="step-detail">Missed-dose alerts are not fired. Nurse not notified. Patient may miss medication.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-h4">My proposed reliability strategy for MedAlert</div>
+    <p>The cron-based alert engine is the highest-risk component. My recommendation: store all schedule timestamps in UTC, use <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;background:var(--bg-soft);padding:1px 5px;border-radius:3px">ALERT_GRACE_MINUTES</code> as an environment variable (not magic number), and pair the cron with a heartbeat log, if the cron skips a cycle, the next cycle catches up.</p>
+
+    <div class="ev-h4">Commandments applied in MedAlert</div>
+    <ul>
+      <li><strong>Validate all inputs.</strong> Backend rejects <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;background:var(--bg-soft);padding:1px 5px;border-radius:3px">actual_dosage &gt; medication.max_dose</code>, implemented as a hard constraint at the API layer.</li>
+      <li><strong>Handle all exceptions.</strong> All exceptions caught, logged, and surfaced as structured JSON errors. No silent failures.</li>
+      <li><strong>Include timeouts.</strong> External calls to FCM and SendGrid have timeouts; failure cascades to the secondary channel.</li>
+      <li><strong>Name all constants.</strong> <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;background:var(--bg-soft);padding:1px 5px;border-radius:3px">ALERT_GRACE_MINUTES</code> is configurable via env, not hardcoded. No magic numbers in safety-critical paths.</li>
+    </ul>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only]</div>
+  </div>
+
+  <!-- WEEK 05-06 -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 05–06</span>
+      <span class="week-ch">Class 03 · Chapter 12</span>
+    </div>
+    <h3>Safety Engineering</h3>
+    <div class="week-topics">Hazard → Accident → Damage · ALARP Triangle · Fault Tree Analysis · "Shall Not" Requirements · Safety Case</div>
+
+    <div class="ev-h4">The hazard chain: my worked example</div>
+    <p>I traced one critical scenario through the full hazard chain. The point was not just to identify a risk, but to design the intervention that breaks the chain, which the team then implemented at the dose-confirmation endpoint.</p>
+
+    <div class="visual">
+      <div class="visual-title">Hazard → Accident → Damage (with intervention)</div>
+      <div class="hazard-chain">
+        <div class="hazard-step hazard">
+          <div class="label">Hazard</div>
+          <p>A nurse attempts to administer a dosage that exceeds the safe maximum (typo, rushed input, or wrong medication selected).</p>
+        </div>
+        <div class="hazard-step accident">
+          <div class="label">Accident</div>
+          <p>If accepted, an excessive dose enters the dose log, and clinically, into the patient.</p>
+        </div>
+        <div class="hazard-step damage">
+          <div class="label">Damage</div>
+          <p>Patient harm, toxicity, overdose, hospitalization, or worse. Hospital faces clinical and legal liability.</p>
+        </div>
+        <div class="hazard-step intervene">
+          <div class="label">Intervention</div>
+          <p>The backend rejects any submission where <code style="font-family:'JetBrains Mono',monospace;font-size:0.78rem">actual_dosage &gt; medication.max_dose</code>. The control is at the API, not the UI, cannot be bypassed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-h4">The ALARP Triangle, applied to MedAlert</div>
+
+    <div class="visual">
+      <div class="visual-title">ALARP, As Low As Reasonably Practicable</div>
+      <div class="alarp-wrap">
+        <svg class="alarp-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="100,15 175,200 25,200" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+          <polygon points="100,15 130,90 70,90" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+          <polygon points="130,90 160,165 40,165 70,90" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+          <polygon points="160,165 175,200 25,200 40,165" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+          <text x="100" y="60" text-anchor="middle" font-size="9" font-family="Inter" font-weight="600" fill="#b91c1c">Intolerable</text>
+          <text x="100" y="130" text-anchor="middle" font-size="9" font-family="Inter" font-weight="600" fill="#b45309">ALARP</text>
+          <text x="100" y="188" text-anchor="middle" font-size="9" font-family="Inter" font-weight="600" fill="#15803d">Acceptable</text>
+          <text x="178" y="110" font-size="8" font-family="JetBrains Mono" fill="#64748b">↑ risk</text>
+        </svg>
+        <div class="alarp-zones">
+          <div class="alarp-zone intolerable">
+            <strong>Intolerable</strong>
+            Overdose via dose-log submission. Designed out, backend hard-blocks any value exceeding <code style="font-family:'JetBrains Mono',monospace;font-size:0.78rem">max_dose</code>. No nurse, no admin can override.
+          </div>
+          <div class="alarp-zone alarp-z">
+            <strong>ALARP</strong>
+            Third-party (FCM / SendGrid) temporary outage. Cannot guarantee 100% uptime of an external service. Reduced via dual-channel redundancy, push and email are independent.
+          </div>
+          <div class="alarp-zone acceptable">
+            <strong>Acceptable</strong>
+            A &lt;1-minute delay between scheduled time and alert delivery (cron runs every minute + grace window). Negligible to patient safety; tolerated by clinical protocol.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-h4">My Fault Tree, top event: "Patient Administered Wrong Dose"</div>
+
+    <div class="visual">
+      <div class="visual-title">Fault Tree Analysis</div>
+      <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:Inter">
+        <!-- Top event -->
+        <rect x="260" y="10" width="200" height="48" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+        <text x="360" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">TOP EVENT</text>
+        <text x="360" y="48" text-anchor="middle" font-size="11" fill="#7f1d1d">Patient given wrong dose</text>
+
+        <!-- OR gate -->
+        <path d="M340 75 Q360 95 380 75 Q380 110 360 115 Q340 110 340 75 Z" fill="#fff" stroke="#b91c1c" stroke-width="1.5"/>
+        <text x="360" y="105" text-anchor="middle" font-size="10" font-weight="700" fill="#b91c1c">OR</text>
+        <line x1="360" y1="58" x2="360" y2="75" stroke="#b91c1c" stroke-width="1.5"/>
+
+        <!-- Branches -->
+        <line x1="360" y1="115" x2="130" y2="155" stroke="#b91c1c" stroke-width="1.5"/>
+        <line x1="360" y1="115" x2="360" y2="155" stroke="#b91c1c" stroke-width="1.5"/>
+        <line x1="360" y1="115" x2="590" y2="155" stroke="#b91c1c" stroke-width="1.5"/>
+
+        <!-- Left branch -->
+        <rect x="40" y="155" width="180" height="48" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+        <text x="130" y="177" text-anchor="middle" font-size="10.5" font-weight="600" fill="#78350f">Excessive dosage</text>
+        <text x="130" y="192" text-anchor="middle" font-size="10.5" font-weight="600" fill="#78350f">submitted by nurse</text>
+
+        <rect x="50" y="245" width="160" height="44" rx="6" fill="#dcfce7" stroke="#15803d"/>
+        <text x="130" y="265" text-anchor="middle" font-size="10" font-weight="600" fill="#14532d">BLOCKED by backend:</text>
+        <text x="130" y="280" text-anchor="middle" font-size="10" font-weight="600" fill="#14532d">max_dose validation</text>
+        <line x1="130" y1="203" x2="130" y2="245" stroke="#15803d" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- Middle branch -->
+        <rect x="270" y="155" width="180" height="48" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+        <text x="360" y="177" text-anchor="middle" font-size="10.5" font-weight="600" fill="#78350f">Nurse ignores</text>
+        <text x="360" y="192" text-anchor="middle" font-size="10.5" font-weight="600" fill="#78350f">missed-dose alert</text>
+
+        <rect x="280" y="245" width="160" height="44" rx="6" fill="#dcfce7" stroke="#15803d"/>
+        <text x="360" y="265" text-anchor="middle" font-size="10" font-weight="600" fill="#14532d">MITIGATED by:</text>
+        <text x="360" y="280" text-anchor="middle" font-size="10" font-weight="600" fill="#14532d">push + email alerts</text>
+        <line x1="360" y1="203" x2="360" y2="245" stroke="#15803d" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- Right branch -->
+        <rect x="500" y="155" width="180" height="48" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+        <text x="590" y="177" text-anchor="middle" font-size="10.5" font-weight="600" fill="#78350f">Schedule corrupted</text>
+        <text x="590" y="192" text-anchor="middle" font-size="10.5" font-weight="600" fill="#78350f">in the database</text>
+
+        <rect x="510" y="245" width="160" height="44" rx="6" fill="#dcfce7" stroke="#15803d"/>
+        <text x="590" y="265" text-anchor="middle" font-size="10" font-weight="600" fill="#14532d">MITIGATED by:</text>
+        <text x="590" y="280" text-anchor="middle" font-size="10" font-weight="600" fill="#14532d">daily pg_dump backup</text>
+        <line x1="590" y1="203" x2="590" y2="245" stroke="#15803d" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- Legend -->
+        <rect x="260" y="310" width="200" height="42" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+        <text x="360" y="325" text-anchor="middle" font-size="9" font-weight="700" fill="#64748b">LEGEND</text>
+        <text x="360" y="340" text-anchor="middle" font-size="9" fill="#334155"><tspan font-weight="700" fill="#b91c1c">OR gate</tspan> · any single branch can cause the event</text>
+      </svg>
+    </div>
+
+    <div class="callout"><strong>Design insight.</strong> The Fault Tree forced the team to think one level deeper than "validate input." Each branch demands its own control. The OR gate means we cannot prevent only the most likely branch, we have to defend all three.</div>
+
+    <div class="ev-h4">"Shall Not" safety requirements I specified for the team</div>
+    <ul>
+      <li><strong>SR1.</strong> The system shall not accept a dose submission where <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem">actual_dosage &gt; medication.max_dose</code>.</li>
+      <li><strong>SR2.</strong> The system shall not silently fail. If PostgreSQL is unreachable, the API shall return 503 and halt dose logging.</li>
+      <li><strong>SR3.</strong> The system shall not allow a nurse role to delete medications or modify dose schedules, only doctors and admins may do so.</li>
+      <li><strong>SR4.</strong> The system shall not permit medication deletion without a double-confirmation token, preventing accidental data loss.</li>
+    </ul>
+
+    <div class="my-contribution"><strong>My individual work in V1.</strong> I specified all four "Shall Not" requirements above based on hazard analysis. The team translated them into backend constraints (the max_dose check, the 503 fail-safe, the role middleware, and the double-confirmation token logic). I also presented the Fault Tree analysis in the V1 deck.</div>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only] · Midterm Exam 1: Week 8</div>
+  </div>
+
+  <!-- WEEK 07-08 -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 07–08</span>
+      <span class="week-ch">Class 05 · Chapter 13</span>
+    </div>
+    <h3>Security Engineering</h3>
+    <div class="week-topics">CIA Triad · Safety vs Security · Risk Vocabulary · Misuse Cases · 10 Design Guidelines · Security Assurance Case</div>
+
+    <div class="ev-h4">The CIA Triad, applied to MedAlert</div>
+    <table class="data-table">
+      <thead><tr><th>Dimension</th><th>Concrete threat</th><th>Control in MedAlert</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Confidentiality</strong></td><td>A nurse from one ward viewing another ward's patient medication history.</td><td>Strict role isolation enforced by middleware. A nurse cannot access doctor views and vice versa. JWT signed with a ≥32-character secret.</td></tr>
+        <tr><td><strong>Integrity</strong></td><td>A malicious insider modifying a schedule to administer a harmful drug.</td><td>Only admins have full CRUD; doctors are read-only on medication history; nurses can only mark doses administered. All actions logged to <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem">alert_logs</code> via the audit service.</td></tr>
+        <tr><td><strong>Availability</strong></td><td>A DoS attack or accidental traffic spike taking down the system.</td><td>Rate-limit middleware on all endpoints. Read-only fail-state when DB unreachable (503 instead of silent corruption).</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ev-h4">Safety vs Security: the distinction I learned</div>
+    <div class="callout"><strong>Safety</strong> protects users from accidental harm, bugs, race conditions, human error. The adversary is nature and complexity. <strong>Security</strong> protects users from intelligent, adaptive adversaries, insiders, hackers, social engineers. The adversary thinks, adapts, and attacks your defenses. Different mindset, different controls.</div>
+
+    <div class="ev-h4">Misuse case: credential theft</div>
+
+    <div class="visual">
+      <div class="visual-title">Misuse Case, Stolen Credentials Attack</div>
+      <svg viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:Inter">
+        <circle cx="80" cy="115" r="22" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+        <text x="80" y="119" text-anchor="middle" font-size="20">⚉</text>
+        <text x="80" y="155" text-anchor="middle" font-size="10" font-weight="600" fill="#7f1d1d">Attacker</text>
+        <text x="80" y="167" text-anchor="middle" font-size="9" fill="#7f1d1d">(nurse creds)</text>
+
+        <defs>
+          <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <polygon points="0 0, 8 4, 0 8" fill="#94a3b8"/>
+          </marker>
+          <marker id="b" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <polygon points="0 0, 8 4, 0 8" fill="#15803d"/>
+          </marker>
+        </defs>
+
+        <line x1="105" y1="115" x2="155" y2="115" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/>
+
+        <rect x="160" y="80" width="155" height="70" rx="8" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="237" y="103" text-anchor="middle" font-size="10" font-weight="700" fill="#0f766e">Step 1</text>
+        <text x="237" y="118" text-anchor="middle" font-size="10" fill="#334155">Login as nurse</text>
+        <text x="237" y="132" text-anchor="middle" font-size="10" fill="#334155">via Firebase Auth</text>
+        <text x="237" y="144" text-anchor="middle" font-size="9" fill="#94a3b8">(first layer fails)</text>
+
+        <line x1="320" y1="115" x2="345" y2="115" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/>
+
+        <rect x="350" y="80" width="155" height="70" rx="8" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="427" y="103" text-anchor="middle" font-size="10" font-weight="700" fill="#0f766e">Step 2</text>
+        <text x="427" y="118" text-anchor="middle" font-size="10" fill="#334155">Attempt to access</text>
+        <text x="427" y="132" text-anchor="middle" font-size="10" fill="#334155">admin endpoints</text>
+
+        <line x1="510" y1="115" x2="535" y2="115" stroke="#15803d" stroke-width="1.5" marker-end="url(#b)"/>
+
+        <rect x="540" y="80" width="155" height="70" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+        <text x="617" y="103" text-anchor="middle" font-size="10" font-weight="700" fill="#15803d">Defense holds</text>
+        <text x="617" y="118" text-anchor="middle" font-size="10" fill="#14532d">Role middleware</text>
+        <text x="617" y="132" text-anchor="middle" font-size="10" fill="#14532d">denies + logs</text>
+        <text x="617" y="144" text-anchor="middle" font-size="9" fill="#15803d">Audit trail created</text>
+      </svg>
+    </div>
+
+    <div class="ev-h4">Security Assurance Case I drafted for the team</div>
+    <ul>
+      <li><strong>System description.</strong> Three-tier web application: React 18 client → Node.js + Express API → PostgreSQL 15 (hosted on Supabase). Auth via Firebase, notifications via FCM + SendGrid.</li>
+      <li><strong>Threat analysis.</strong> Primary adversaries: insider misuse by clinical staff, external credential theft, API injection. Each modeled as a distinct misuse case.</li>
+      <li><strong>Design rationale.</strong> Defense in depth, platform-level (Firebase Auth, JWT), application-level (role middleware, rate-limit middleware), data-level (audit service, daily backup, double-confirmation tokens).</li>
+      <li><strong>V&V evidence.</strong> Admin 2FA via TOTP at login. All exceptions logged as structured JSON. Daily pg_dump backup at 02:00 server time. Role isolation enforced at API layer, not just UI.</li>
+    </ul>
+
+    <div class="ev-h4">Three design guidelines applied in MedAlert</div>
+    <ul>
+      <li><strong>Defense in Depth.</strong> Firebase Auth (platform) + role middleware (application) + audit log + admin 2FA, three layers, four controls. Never one point of failure.</li>
+      <li><strong>Fail Securely.</strong> If the database is unreachable, the API returns 503 and halts dose logging. The default state on failure is <em>locked</em>, not open.</li>
+      <li><strong>Log User Actions.</strong> Every alert and every dose event is logged to <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem">alert_logs</code> via the audit service. No role can delete this log.</li>
+    </ul>
+
+    <div class="my-contribution"><strong>My individual work in V1.</strong> I drafted the security assurance case structure and the three design-guideline narratives above. I also presented the security threat model in the V1 deck, including the misuse case for credential theft and how role isolation defeats it.</div>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only]</div>
+  </div>
+
+  <!-- WEEK 09-10 -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 09–10</span>
+      <span class="week-ch">Class 06 · Chapter 14</span>
+    </div>
+    <h3>Resilience Engineering</h3>
+    <div class="week-topics">Cybersecurity · Sociotechnical Resilience · Swiss Cheese Model · R&R Strategies · Human-in-the-Loop</div>
+
+    <div class="ev-h4">From reliable to resilient: my reframing for the team</div>
+    <p>Reliability is about delivering service when everything works. Resilience is about delivering <strong>critical service</strong> when components fail. For MedAlert, I argued the critical service is one sentence: a nurse can always know what the patient was supposed to receive, even when the DB is down, the cron is delayed, or FCM is throttled.</p>
+
+    <div class="ev-h4">The failure chain: applied to a real risk in our system</div>
+
+    <div class="visual">
+      <div class="visual-title">Fault → Error → Failure</div>
+      <div class="chain">
+        <div class="chain-step fault">
+          <div class="step-label">Fault</div>
+          <div class="step-name">Connection leak</div>
+          <div class="step-detail">DB connection pool leaks connections under load; eventually exhausted.</div>
+        </div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step error">
+          <div class="step-label">Error</div>
+          <div class="step-name">Failed queries</div>
+          <div class="step-detail">The cron-based alert checker cannot query <code>dose_schedules</code>; alert detection halts.</div>
+        </div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step failure">
+          <div class="step-label">Failure</div>
+          <div class="step-name">Round missed</div>
+          <div class="step-detail">No missed-dose alerts fire during a shift. Up to 40 patients miss automated reminders.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-h4">R&R strategy I documented for MedAlert</div>
+    <table class="data-table">
+      <thead><tr><th>Event</th><th>Recognition</th><th>Resistance</th></tr></thead>
+      <tbody>
+        <tr><td>API or scheduler crash</td><td>PM2 process manager detects process exit immediately. Structured exception logs forwarded to admins.</td><td>PM2 auto-restart. Until the process is back, the API returns 503, known failure, not silent.</td></tr>
+        <tr><td>Database unreachable</td><td>Connection health check fails on first request after timeout.</td><td>API returns 503; dose logging halts. No corrupted writes. Once DB recovers, normal operation resumes.</td></tr>
+        <tr><td>Push (FCM) channel down</td><td>FCM call returns error or times out.</td><td>SendGrid email alert is still independently dispatched. Two channels, one message.</td></tr>
+        <tr><td>Unauthorized access attempt</td><td>Role middleware rejects request and writes to audit log. Admin alerted via dashboard.</td><td>Firebase session invalidation. Admin enforces password reset and reviews audit trail.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ev-h4">The Swiss Cheese model: three defensive layers I mapped</div>
+
+    <div class="visual">
+      <div class="visual-title">Three Layers · Holes That Don't Line Up</div>
+      <div class="swiss">
+        <div class="swiss-layer">
+          <div class="layer-num">1</div>
+          <h5>Technical layer</h5>
+          <ul>
+            <li>Role middleware + Firebase Auth</li>
+            <li>Rate limiting on endpoints</li>
+            <li>max_dose validation at API</li>
+            <li>PM2 auto-restart on crash</li>
+            <li>Daily pg_dump backup</li>
+          </ul>
+        </div>
+        <div class="swiss-layer">
+          <div class="layer-num">2</div>
+          <h5>Human layer</h5>
+          <ul>
+            <li>Nurses confirm dose at administration</li>
+            <li>Doctors can verify medication history</li>
+            <li>Admins review audit logs</li>
+            <li>Double-confirmation for deletions</li>
+          </ul>
+        </div>
+        <div class="swiss-layer">
+          <div class="layer-num">3</div>
+          <h5>Organizational layer</h5>
+          <ul>
+            <li>Admin 2FA enforcement at login</li>
+            <li>Daily backup as recovery insurance</li>
+            <li>Audit trail for accountability</li>
+            <li>Clinical SOPs around manual fallback</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout"><strong>The principle.</strong> Make the defenses different so the holes don't align. For an error to harm a patient, all three layers must fail simultaneously, and they're designed to fail differently.</div>
+
+    <div class="ev-h4">The sociotechnical factor: when automation hits its limit</div>
+    <p>Automated resilience handles common failure modes. But when the API returns 503 (DB unreachable) during a medication round, the system escalates to humans, nurses revert to the printed medication administration record (the clinical paper protocol that pre-dated MedAlert). The admin is notified via the dashboard. The human is not a fallback of last resort; they are the final, irreplaceable layer of the Swiss Cheese model.</p>
+
+    <div class="my-contribution"><strong>My individual work in V1.</strong> I mapped MedAlert's existing controls (which the developers had implemented) onto the Swiss Cheese model, showing how the technical, human, and organizational layers combine to prevent single-point failures. This made the team's existing design legible as a resilience strategy rather than a list of features.</div>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only]</div>
+  </div>
+
+  <!-- WEEK 11-12: Software Reuse -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 11–12</span>
+      <span class="week-ch">Class 07 · Chapter 15</span>
+    </div>
+    <h3>Software Reuse</h3>
+    <div class="week-topics">Reuse Landscape · Application Frameworks · Software Product Lines · The Ariane 5 Lesson</div>
+
+    <div class="ev-h4">MedAlert's positioning: Development with Reuse</div>
+    <p>MedAlert is built with <strong>Development with Reuse</strong>. The team composed proven external components rather than build core infrastructure from scratch. The planning factors I documented:</p>
+    <ul>
+      <li><strong>Schedule.</strong> Semester-bounded delivery. Building auth from scratch adds weeks of risk and offers no clinical value.</li>
+      <li><strong>Criticality.</strong> A safety-critical system needs battle-tested components, Firebase Auth has billions of deployments behind it; an in-house auth has zero.</li>
+      <li><strong>Team skills.</strong> Strong Node.js and React competency. Framework alignment maximizes productivity.</li>
+    </ul>
+
+    <div class="ev-h4">Product Line view: Core vs Specialized</div>
+    <table class="data-table">
+      <thead><tr><th>Layer</th><th>Component</th><th>Role in MedAlert</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill green">Core</span></td><td>React 18 + React Router v6</td><td>UI rendering and routing, identical across all clinic deployments.</td></tr>
+        <tr><td><span class="pill green">Core</span></td><td>Node.js 20 + Express 4</td><td>API backbone, generic routing and request handling.</td></tr>
+        <tr><td><span class="pill green">Core</span></td><td>PostgreSQL 15 (Supabase)</td><td>Relational storage, schedules, dose logs, audit trails.</td></tr>
+        <tr><td><span class="pill green">Core</span></td><td>Firebase Authentication</td><td>Auth + session, consistent security layer with TOTP support for admins.</td></tr>
+        <tr><td><span class="pill amber">Specialized</span></td><td>FCM configuration</td><td>Per-clinic, different device pools, VAPID keys, alert categories.</td></tr>
+        <tr><td><span class="pill amber">Specialized</span></td><td>SendGrid templates</td><td>Per-clinic branding and sender verification.</td></tr>
+        <tr><td><span class="pill amber">Specialized</span></td><td>Drug formulary in DB</td><td>Per-clinic available drugs and regulatory constraints.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ev-h4">The Ariane 5 lesson: what I took from it</div>
+    <div class="callout warn"><strong>The risk.</strong> Ariane 5 failed because a module validated for Ariane 4's velocity caused an overflow at Ariane 5's higher speed. The engineers assumed: "it worked before, it'll work again." That assumption killed the rocket.<br><br><strong>How it applies to MedAlert.</strong> Firebase Auth is battle-tested for consumer apps, but MedAlert's role boundaries (nurse/doctor/admin), admin 2FA, and clinical session timeouts are not the typical consumer scenario. The team validated Firebase Auth specifically against our role middleware before integration. Reuse without re-validation is just a delayed bug.</div>
+
+    <div class="ev-h4">Industry alignment: Microservices</div>
+    <p>MedAlert's reuse strategy positions it for microservices evolution. The notification layer (FCM + SendGrid) is decoupled from the core application. If a clinic later requires on-premise email instead of SendGrid, the team swaps one component without touching medication logic. Reuse and replaceability are two sides of the same coin.</p>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only]</div>
+  </div>
+
+  <!-- WEEK 13-14: CBSE -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 13–14</span>
+      <span class="week-ch">Class 08 · Chapter 16</span>
+    </div>
+    <h3>Component-Based Software Engineering</h3>
+    <div class="week-topics">CBSE Definitions · Development for vs with Reuse · Component Composition · Glue Code</div>
+
+    <div class="ev-h4">MedAlert's approach: Development with Reuse</div>
+    <p>The team's goal is to ship a specific clinical product, not produce reusable components for others. However, two modules, the alert service and the audit service, are designed as independent, composable internal components so they <em>could</em> be reused in future health-tech products.</p>
+
+    <div class="ev-h4">Component composition</div>
+    <table class="data-table">
+      <thead><tr><th>Component</th><th>Provides Interface</th><th>Requires Interface</th></tr></thead>
+      <tbody>
+        <tr><td>Auth Module (Firebase + JWT)</td><td>Authenticated session, role claim</td><td>Credentials from React login form</td></tr>
+        <tr><td>Express API (controllers + routes)</td><td>REST endpoints for schedules, doses, users</td><td>Valid JWT, DB connection, role-middleware approval</td></tr>
+        <tr><td>Cron Alert Service</td><td>Missed-dose detection events</td><td>DB connection, system clock, ALERT_GRACE_MINUTES</td></tr>
+        <tr><td>Notification Service</td><td>Confirmed delivery to FCM + SendGrid</td><td>Missed-dose events, Firebase admin SDK, SendGrid API key</td></tr>
+        <tr><td>Audit Service</td><td>Immutable entries in <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem">alert_logs</code></td><td>All mutation events, DB write access</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ev-h4">Composition pattern</div>
+    <p>MedAlert uses <strong>sequential composition</strong> for the core medication workflow.</p>
+
+    <div class="visual">
+      <div class="visual-title">Sequential Composition, The Core Workflow</div>
+      <svg viewBox="0 0 720 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:Inter">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <polygon points="0 0, 8 4, 0 8" fill="#0f766e"/>
+          </marker>
+        </defs>
+        <rect x="10" y="35" width="115" height="40" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+        <text x="67.5" y="59" text-anchor="middle" font-size="10" font-weight="600" fill="#134e4a">Schedule created</text>
+        <line x1="125" y1="55" x2="151" y2="55" stroke="#0f766e" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="155" y="35" width="115" height="40" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+        <text x="212.5" y="59" text-anchor="middle" font-size="10" font-weight="600" fill="#134e4a">Cron detects miss</text>
+        <line x1="270" y1="55" x2="296" y2="55" stroke="#0f766e" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="300" y="35" width="115" height="40" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+        <text x="357.5" y="59" text-anchor="middle" font-size="10" font-weight="600" fill="#134e4a">Alert dispatched</text>
+        <line x1="415" y1="55" x2="441" y2="55" stroke="#0f766e" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="445" y="35" width="115" height="40" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+        <text x="502.5" y="59" text-anchor="middle" font-size="10" font-weight="600" fill="#134e4a">Dose confirmed</text>
+        <line x1="560" y1="55" x2="586" y2="55" stroke="#0f766e" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="590" y="35" width="120" height="40" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+        <text x="650" y="59" text-anchor="middle" font-size="10" font-weight="600" fill="#134e4a">Audit logged</text>
+      </svg>
+    </div>
+
+    <div class="ev-h4">The glue code problem</div>
+    <div class="callout"><strong>The mismatch.</strong> The alert service emits events as internal JavaScript objects. FCM requires its own message schema with device tokens; SendGrid requires a different schema with email payloads.<br><br><strong>The solution.</strong> The notification service acts as the adapter, it transforms each alert event into both target formats and dispatches them in parallel. Parameter incompatibility resolved without modifying the alert service or the third-party APIs.</div>
+
+    <div class="ev-h4">Validation and identified risk</div>
+    <ul>
+      <li><strong>Integration plan.</strong> Each service tested in isolation, then pair-tested with neighbors, then end-to-end via the deployed Vercel preview.</li>
+      <li><strong>Risk I identified.</strong> Firebase Auth rate limits, if all nurse devices authenticate at shift start, the provider may throttle. Mitigation: stagger logins and use the 30-min JWT session window.</li>
+    </ul>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only]</div>
+  </div>
+
+  <!-- DISTRIBUTED -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 13–14</span>
+      <span class="week-ch">Class 09 · Chapter 17</span>
+    </div>
+    <h3>Distributed Software Engineering</h3>
+    <div class="week-topics">Distributed Characteristics · Client-Server · Architectural Patterns · Middleware · SaaS · Scaling & Security</div>
+
+    <div class="ev-h4">MedAlert's positioning: Multi-Tier Client-Server</div>
+    <p>MedAlert uses multi-tier client-server because it matches the requirements: structured data, role separation, centralized control, distributed access. One authoritative database (Supabase) and many client devices (nurse tablets, doctor workstations, admin terminals).</p>
+    <div class="callout"><strong>Why not peer-to-peer?</strong> MedAlert needs one authoritative source of truth for medication schedules. In a P2P model, two nurse devices could diverge on whether a dose was administered, a split-brain that causes either a missed dose or a double-dose. Centralized = consistent.</div>
+
+    <div class="ev-h4">Node distribution</div>
+    <div class="visual">
+      <div class="visual-title">MedAlert Distributed Architecture</div>
+      <div class="arch-diagram">
+        <div class="arch-tier client">
+          <span class="tier-label">Client Tier</span>
+          <div class="tier-content"><strong>React 18 SPA · Vercel.</strong> Nurse tablets, doctor workstations, admin terminals. Service worker for FCM web push. No business logic, all enforcement is server-side.</div>
+        </div>
+        <div class="arch-connector">↓ HTTPS · Axios</div>
+        <div class="arch-tier app">
+          <span class="tier-label">Application Tier</span>
+          <div class="tier-content"><strong>Node.js 20 + Express 4.</strong> Controllers, role middleware, rate-limit middleware, cron job (missed-dose checker every minute), audit service. PM2 process manager for reliability.</div>
+        </div>
+        <div class="arch-connector">↓ Postgres protocol · TLS</div>
+        <div class="arch-tier data">
+          <span class="tier-label">Data Tier</span>
+          <div class="tier-content"><strong>PostgreSQL 15 on Supabase.</strong> Managed database with built-in replication and backup. <code style="font-family:'JetBrains Mono',monospace;font-size:0.82rem">schema.sql</code> + migration files versioned in repo. Daily pg_dump for additional safety.</div>
+        </div>
+        <div class="arch-connector">↓ HTTPS · external SaaS</div>
+        <div class="arch-tier notif">
+          <span class="tier-label">External (SaaS)</span>
+          <div class="tier-content"><strong>Firebase Auth + FCM · SendGrid.</strong> Auth, push notifications, and email, consumed as SaaS. No infrastructure to maintain; provider handles scaling.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-h4">Failover plan</div>
+    <table class="data-table">
+      <thead><tr><th>Failure</th><th>Response</th></tr></thead>
+      <tbody>
+        <tr><td>API process crash</td><td>PM2 auto-restart within seconds. Vercel-hosted frontend continues to render the last-cached state.</td></tr>
+        <tr><td>Supabase / DB unreachable</td><td>API returns 503 and halts dose logging. <em>This is by design, silent failure is the worst outcome.</em> Once connectivity is restored, operation resumes.</td></tr>
+        <tr><td>FCM push channel down</td><td>SendGrid email is independently dispatched. Two channels, one message, single channel failure cannot drop the alert.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ev-h4">Security in transit</div>
+    <p>All client–server traffic is encrypted with TLS (handled by Vercel/Supabase). JWT tokens are signed with a ≥32-character secret stored in <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem">JWT_SECRET</code>. Admin login enforces TOTP-based 2FA, raising the bar for the highest-privilege role.</p>
+
+    <div class="ev-h4">SaaS alignment</div>
+    <p>MedAlert leverages SaaS extensively, Firebase Auth, FCM, SendGrid, Supabase, Vercel. The team focuses on clinical logic, not infrastructure. The trade-off is dependency on external providers, mitigated by the dual-channel notification design and the daily backup.</p>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only]</div>
+  </div>
+
+  <!-- MULTI-TIER -->
+  <div class="week">
+    <div class="week-meta">
+      <span class="week-num">Week 15–16</span>
+      <span class="week-ch">Class 10 · Chapter 20</span>
+    </div>
+    <h3>Multi-Tier Architecture & Middleware</h3>
+    <div class="week-topics">Tier Architecture Selection · Middleware Role · Validation & Localized Control · Microservices Alignment</div>
+
+    <div class="ev-h4">MedAlert's choice: Thin Client, Multi-Tier</div>
+    <p>MedAlert uses a thin-client multi-tier architecture. The React SPA renders the UI and manages local state, but all business logic runs server-side. The reasoning:</p>
+    <ul>
+      <li><strong>Server-side enforcement.</strong> Safety rules (max_dose validation, role checks, double-confirmation) must execute on the server. Client-side validation can be bypassed by a determined user.</li>
+      <li><strong>Consistent rules across devices.</strong> Logic on a server we control. A fat-client approach means many potential points of inconsistency per ward.</li>
+      <li><strong>Device management.</strong> Thin clients are easy to replace. A broken tablet is replaced in under a minute, no local state to migrate.</li>
+    </ul>
+
+    <div class="ev-h4">Middleware role in MedAlert</div>
+    <p>Express middleware in MedAlert is exactly the textbook example, composable layers that bridge concerns:</p>
+    <ul>
+      <li><strong>Auth middleware.</strong> Verifies the Firebase JWT on every request. Without this, the request never reaches the controller.</li>
+      <li><strong>Role middleware.</strong> Enforces nurse/doctor/admin boundaries. A nurse calling an admin endpoint is rejected here, before any business logic runs.</li>
+      <li><strong>Rate-limit middleware.</strong> Protects against accidental traffic spikes and brute-force attempts.</li>
+      <li><strong>Validation middleware.</strong> Schema validation on every input, including the <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem">actual_dosage ≤ max_dose</code> safety check.</li>
+      <li><strong>Error handler middleware.</strong> Catches every exception, logs it, and returns structured JSON instead of a stack trace.</li>
+    </ul>
+
+    <div class="ev-h4">Localized failure: preventing cascade collapse</div>
+    <div class="callout"><strong>If the database tier goes down.</strong> The application tier detects the failed connection check. It immediately returns 503 to the client and halts new dose logging. The UI shows an honest error. <em>Critically, the system does not pretend to function</em>, it states what it can and cannot do. This is the difference between failure (recoverable) and silent failure (catastrophic).</div>
+
+    <div class="ev-h4">Industry alignment: Microservices evolution path</div>
+    <p>The current MedAlert application tier is a monolith, all logic in one Node.js process. But the modules (alert service, audit service, notification adapter) are designed as logically independent components. If a clinic scales to 1000+ beds, these modules can be extracted into independent microservices with their own deployment pipelines, scaling independently. The current design does not block this evolution, it enables it.</p>
+
+    <div class="my-contribution"><strong>My individual work in V1.</strong> I documented the multi-tier rationale and the middleware chain on the V1 presentation deck. I framed why thin-client server-side enforcement is the right choice for a safety-critical system, and used the max_dose check as the canonical example of why client-side validation alone is insufficient.</div>
+
+    <div class="score">Instructor Score: [Leave Blank, For Instructor Use Only] · Group Project Due: Week 15</div>
+  </div>
+
+</section>
+
+<!-- PROJECT -->
+<section id="project">
+  <h2>Capstone project</h2>
+  <p class="section-sub">V1 and V2 delivered. My share of the team's documentation work.</p>
+
+  <div class="project-card">
+    <div class="project-title">MedAlert</div>
+    <div class="project-tagline">Clinic Medication Management System · Healthcare · Web Application</div>
+    <a href="https://github.com/ShareefAbdoo/MedAlert-CPIT455" target="_blank" rel="noopener" class="project-live">View source on GitHub · ShareefAbdoo/MedAlert-CPIT455</a>
+
+    <p style="color:var(--ink-soft); max-width:760px; margin-bottom:0.5rem;">Nurses in clinics rely on manual paper-based systems to track patient medications. This leads to missed doses, administration errors, and zero real-time oversight. <strong style="color:var(--ink)">MedAlert</strong> is a 3-tier web application that digitizes the workflow: it manages medication schedules, runs a cron-based missed-dose detector, sends dual-channel alerts (push + email), and maintains an immutable audit log of every action. Every design decision is driven by one principle: patient safety is non-negotiable.</p>
+
+    <div class="project-meta">
+      <div class="meta-item">
+        <div class="meta-label">Domain</div>
+        <div class="meta-val">Healthcare / Clinical Systems</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team Size</div>
+        <div class="meta-val">5 members</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">My Role (V1)</div>
+        <div class="meta-val">Analysis & Documentation Lead</div>
+      </div>
+    </div>
+
+    <h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); font-weight:600; margin-bottom:0.8rem;">Technology Stack</h4>
+    <div class="tech-stack-list">
+      <div class="tech-layer">Frontend</div><div class="tech-name">React 18 · React Router v6 · Axios</div>
+      <div class="tech-layer">Backend</div><div class="tech-name">Node.js 20 · Express 4</div>
+      <div class="tech-layer">Database</div><div class="tech-name">PostgreSQL 15 on Supabase</div>
+      <div class="tech-layer">Authentication</div><div class="tech-name">Firebase Auth + TOTP 2FA (admin)</div>
+      <div class="tech-layer">Push Alerts</div><div class="tech-name">Firebase Cloud Messaging (FCM)</div>
+      <div class="tech-layer">Email Alerts</div><div class="tech-name">SendGrid</div>
+      <div class="tech-layer">Process Manager</div><div class="tech-name">PM2</div>
+      <div class="tech-layer">Hosting</div><div class="tech-name">Vercel (frontend) · Supabase (DB)</div>
+    </div>
+
+    <h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); font-weight:600; margin:1.8rem 0 0.8rem;">Dependability Metrics</h4>
+    <div class="metrics-row">
+      <div class="metric"><div class="m-label">Availability</div><div class="m-val">PM2 + auto-restart</div></div>
+      <div class="metric"><div class="m-label">Reliability</div><div class="m-val">POFOD-focused</div></div>
+      <div class="metric"><div class="m-label">Safety</div><div class="m-val">max_dose enforced</div></div>
+      <div class="metric"><div class="m-label">Security</div><div class="m-val">RBAC + 2FA + Audit</div></div>
+      <div class="metric"><div class="m-label">Resilience</div><div class="m-val">503 fail-fast</div></div>
+    </div>
+
+    <h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); font-weight:600; margin:1.8rem 0 0.8rem;">Architecture & Engineering Decisions</h4>
+    <table class="data-table">
+      <tbody>
+        <tr><td style="width:30%"><strong>Software Reuse</strong></td><td>Development with Reuse. Seven reused components (React, Express, PostgreSQL, Firebase Auth, FCM, SendGrid, PM2), each validated against MedAlert's clinical requirements before integration.</td></tr>
+        <tr><td><strong>Distributed Architecture</strong></td><td>Multi-tier thin client. Frontend on Vercel, backend on Node.js with PM2, database on Supabase PostgreSQL. TLS in transit. JWT-based session with admin TOTP 2FA.</td></tr>
+        <tr><td><strong>Component-Based Design</strong></td><td>Five logical services with defined interfaces: auth, schedule API, cron alert service, notification service, audit service. Daily pg_dump backup for data resilience.</td></tr>
+        <tr><td><strong>Hazard Analysis</strong></td><td>Top event "patient given wrong dose" with full Fault Tree (3 OR branches). Each branch has a concrete mitigation: max_dose validation, dual-channel alerts, daily backup.</td></tr>
+        <tr><td><strong>Resilience Strategy</strong></td><td>Three-layer Swiss Cheese defense, technical (middleware, validation, PM2), human (nurse confirmation, doctor review, admin oversight), organizational (2FA, audit log, daily backup).</td></tr>
+      </tbody>
+    </table>
+
+    <div class="role-card">
+      <h4>My Role in V1: Analysis & Documentation Lead</h4>
+      <ul>
+        <li><strong>Specified the four "Shall Not" safety requirements</strong> based on hazard analysis (max_dose enforcement, 503 fail-safe behavior, role-based delete restrictions, double-confirmation tokens). The development team translated these into the backend implementation.</li>
+        <li><strong>Constructed the Fault Tree</strong> for the top hazard "patient administered wrong dose", identifying three independent failure paths and mapping each to an existing or proposed control.</li>
+        <li><strong>Drafted the Security Assurance Case</strong> covering the system description, threat analysis (insider misuse, credential theft, API injection), design rationale, and V&V evidence.</li>
+        <li><strong>Mapped the team's existing implementation to the Swiss Cheese resilience model</strong>, showing how MedAlert's controls (middleware, audit log, 2FA, backups) align with three independent defensive layers.</li>
+        <li><strong>Prepared and presented the V1 deck</strong>, six slides covering identity, architecture, fault tree, dependability attributes, and the summary. The slides translated the team's code into the engineering language the course requires.</li>
+        <li><strong>Made the team's engineering decisions legible</strong> as proof of dependable design, turning implementation choices into a documented engineering case.</li>
+      </ul>
+    </div>
+
+    <div class="role-card" style="border-left:4px solid var(--warn);">
+      <h4 style="color:var(--warn);">My Role in V2: Completed Contributions</h4>
+      <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem; font-style:italic;">My share of the V2 documentation work, building on V1, focused on the resilience and reuse chapters.</p>
+      <ul>
+        <li><strong>Wrote the Resilience section.</strong> Documented the R&R (Recognition & Resistance) strategies for the failure modes the team's code already handles, PM2 auto-restart, the 503 fail-fast response when the DB is unreachable, and the dual-channel alert design. Each event paired with how it is recognized and how the system resists it.</li>
+        <li><strong>Wrote the Software Reuse strategy section.</strong> Justified the team's stack choices (Firebase Auth, FCM, SendGrid, Supabase, PM2) using the reuse landscape and the Ariane 5 lesson. The point is not "we used libraries", it is "here is why each choice was validated against MedAlert's specific clinical requirements before being trusted."</li>
+        <li><strong>Handed off the rest.</strong> CBSE component composition, distributed architecture, and multi-tier middleware documentation were covered by other team members in V2. My contribution stayed focused so it could be done well.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section id="reflection">
+  <h2>H-Stack reflection</h2>
+  <p class="section-sub">Authentic notes on what changed in how I think.</p>
+
+  <div class="reflection-grid">
+    <div class="ref-card">
+      <h4>Market mindset</h4>
+      <p>Every design decision can be defended in a business meeting. POFOD over ROCOF because clinics measure success per patient, not per hour. ALARP because infinite safety is infinitely expensive. Documentation is not overhead, it <em>is</em> the product.</p>
+    </div>
+    <div class="ref-card">
+      <h4>Evidence-first</h4>
+      <p>From "I know the stack" to "I can prove this stack is the right choice for a thin-client medication dashboard, given these three planning factors." Evidence is not extra work. It is the work.</p>
+    </div>
+    <div class="ref-card">
+      <h4>Communication</h4>
+      <p>Writing "Shall Not" requirements taught me to communicate with engineers and regulators simultaneously. The team built max_dose validation; my job was to explain <em>why</em> this is a safety requirement, not just a feature.</p>
+    </div>
+    <div class="ref-card">
+      <h4>Consistency</h4>
+      <p>Week by week, one layer at a time. The discipline compounded into a system I can defend end-to-end, not just describe.</p>
+    </div>
+  </div>
+
+  <blockquote>"Before this course, I thought software engineering meant writing code. Now I understand it means building evidence. Every design decision must be justifiable, traceable, and provable. The portfolio is not documentation of work, it <em>is</em> the work."</blockquote>
+
+  <blockquote>"The most important insight this semester: safety and reliability are not the same thing. A reliable weapon is still dangerous. A reliable medication system that silently drops alerts is still unsafe. Safety is freedom from harm. You cannot test it in, you must design it in. MedAlert's 503 fail-fast behavior is a small embodiment of that idea: an honest failure is recoverable; a hidden one is catastrophic."</blockquote>
+
+  <blockquote>"In safety engineering, you are guilty until proven innocent. The burden of proof is on the engineer. My role in V1 was to build that proof for our team, to make the system's safety not a claim, but a documented case."</blockquote>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong style="color:var(--ink-soft);">CPIT-455 Software Engineering II · HIMMA Curriculum</strong></p>
+  <p>King Abdulaziz University · Faculty of Computing and Information Technology</p>
+  <p style="margin-top:0.5rem;">Textbook: Ian Sommerville, <em>Software Engineering</em>, 10th Edition (2015) · V1 and V2 delivered</p>
+</footer>
+
+</body>
+</html>
